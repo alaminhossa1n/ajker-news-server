@@ -9,6 +9,6 @@ const categorySchema = new Schema<{ name: string }>(
   }
 );
 
-const categoryModel = model<{ name: string }>("categories", categorySchema);
+const categoryModel = model<{ name: string }>("Category", categorySchema);
 
 export default categoryModel;

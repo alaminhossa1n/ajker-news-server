@@ -2,6 +2,8 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import { userRoutes } from "./app/modules/user/user.routes";
 import { categoryRoute } from "./app/modules/category/category.route";
+import { articleController } from "./app/modules/article/article.controller";
+import { articleRoute } from "./app/modules/article/article.route";
 
 const app: Application = express();
 
@@ -18,6 +20,9 @@ app.use("/api/auth", userRoutes);
 
 //category
 app.use("/api/category", categoryRoute);
+
+//article
+app.use("/api/article", articleRoute);
 
 //global error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

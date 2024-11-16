@@ -7,7 +7,6 @@ export type TArticle = {
   author_id: ObjectId;
   category_id: ObjectId;
   tags: string[];
-  status: "draft" | "published" | "archived";
   published_at?: Date;
   views: number;
   comments_count: number;
