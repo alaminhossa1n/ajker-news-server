@@ -1,6 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import { userRoutes } from "./app/modules/user/user.routes";
+import { categoryRoute } from "./app/modules/category/category.route";
 
 const app: Application = express();
 
@@ -14,6 +15,9 @@ app.use(cors(corsOptions));
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", userRoutes);
+
+//category
+app.use("/api/category", categoryRoute);
 
 //global error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
