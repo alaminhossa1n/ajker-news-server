@@ -26,7 +26,6 @@ app.use("/api/article", articleRoute);
 
 //global error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error(err); // Log the error for debugging
 
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";

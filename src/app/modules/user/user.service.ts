@@ -22,6 +22,12 @@ const createUserIntoDB = async (payload: TUser) => {
   return userWithoutPassword;
 };
 
+//get all users
+const getAllUsers = async () => {
+  const res = await userModel.find().select("-password");
+  return res;
+};
+
 //login user
 const loginUser = async (payload: TUser) => {
   const isUserExist = await userModel.findOne({ email: payload.email });
@@ -96,5 +102,6 @@ const changePassword = async (payload: {
 export const userServices = {
   createUserIntoDB,
   loginUser,
-  changePassword
+  changePassword,
+  getAllUsers
 };

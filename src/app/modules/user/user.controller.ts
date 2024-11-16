@@ -15,6 +15,21 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+//get all users
+const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await userServices.getAllUsers();
+    res.status(200).json({
+      success: true,
+      statusCode: 201,
+      message: "User retrieved successfully",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 ///login user
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -53,4 +68,5 @@ export const userController = {
   createUser,
   loginUser,
   changePassword,
+  getAllUsers,
 };
