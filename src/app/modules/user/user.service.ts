@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 //create user in database
-const CreateUserIntoDB = async (payload: TUser) => {
+const createUserIntoDB = async (payload: TUser) => {
   const isUserExist = await userModel.findOne({ email: payload.email });
 
   if (isUserExist) {
@@ -59,7 +59,42 @@ const loginUser = async (payload: TUser) => {
   };
 };
 
+// Change Password
+const changePassword = async (payload: {
+  email: string;
+  currentPassword: string;
+  newPassword: string;
+}) => {
+  const isUserExist = await userModel.findOne({ email: payload.email });
+
+  if (!isUserExist) {
+    throw new AppError(409, "User does not Exits");
+  }
+
+  const isPasswordMatched = await bcrypt.compare(
+    payload?.currentPassword,
+    isUserExist?.password
+  );
+
+  if (!isPasswordMatched) {
+    throw new AppError(401, "Wrong Password");
+  }
+
+  const newHashedPassword = await bcrypt.hash(
+    payload.newPassword,
+    Number(config.salt_rounds)
+  );
+
+  const result = await userModel.updateOne(
+    { email: payload.email },
+    { $set: { password: newHashedPassword } }
+  );
+
+  return result;
+};
+
 export const userServices = {
-  CreateUserIntoDB,
+  createUserIntoDB,
   loginUser,
+  changePassword
 };
