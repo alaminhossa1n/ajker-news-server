@@ -5,6 +5,11 @@ const createCategory = async (payload: { name: string }) => {
   return res;
 };
 
+const getCategory = async () => {
+  const res = await categoryModel.find();
+  return res;
+};
 export const categoryService = {
   createCategory,
+  getCategory
 };

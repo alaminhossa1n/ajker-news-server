@@ -21,7 +21,7 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     const result = await userServices.getAllUsers();
     res.status(200).json({
       success: true,
-      statusCode: 201,
+      statusCode: 200,
       message: "User retrieved successfully",
       data: result,
     });
@@ -36,7 +36,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     const result = await userServices.loginUser(req.body);
     res.status(200).json({
       success: true,
-      statusCode: 201,
+      statusCode: 200,
       message: "User login successfully",
       data: result,
     });
@@ -55,7 +55,7 @@ const changePassword = async (
     const result = await userServices.changePassword(req.body);
     res.status(200).json({
       success: true,
-      statusCode: 201,
+      statusCode: 200,
       message: "Password changed successfully",
       data: result,
     });

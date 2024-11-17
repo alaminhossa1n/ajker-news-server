@@ -6,8 +6,8 @@ const articleSchema = new Schema<TArticle>(
     title: { type: String, required: true, trim: true },
     content: { type: String, required: true },
     image: { type: String, required: true },
-    author_id: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    category_id: {
+    author: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    category: {
       type: Schema.Types.ObjectId,
       ref: "Category",
       required: true,

@@ -4,8 +4,8 @@ export type TArticle = {
   title: string;
   content: string;
   image: string;
-  author_id: ObjectId;
-  category_id: ObjectId;
+  author: ObjectId;
+  category: ObjectId;
   tags: string[];
   published_at?: Date;
   views: number;

@@ -10,8 +10,36 @@ const createArticle = async (payload: TArticle) => {
 
 //get all articles
 const getAllArticles = async () => {
-  const res = await ArticleModel.find();
-  return res;
+  const articles = await ArticleModel.find()
+    .populate("author", "name")
+    .populate("category", "name");
+  return articles;
+};
+
+//get breakings
+const getBreakings = async () => {
+  const articles = await ArticleModel.find({ is_breaking: true })
+    .populate("author", "name")
+    .populate("category", "name");
+  return articles;
+};
+
+//get featured
+const getFeatured = async () => {
+  const articles = await ArticleModel.find({ is_featured: true })
+    .populate("author", "name")
+    .populate("category", "name");
+  return articles;
+};
+
+//get tending
+const getTending = async () => {
+  const articles = await ArticleModel.find({
+    published_at: { $gte: new Date(Date.now() - 48 * 60 * 60 * 1000) },
+  })
+    .populate("author", "name")
+    .populate("category", "name");
+  return articles;
 };
 
 //update articles
@@ -39,4 +67,7 @@ export const articleService = {
   createArticle,
   getAllArticles,
   updateArticle,
+  getBreakings,
+  getFeatured,
+  getTending,
 };
