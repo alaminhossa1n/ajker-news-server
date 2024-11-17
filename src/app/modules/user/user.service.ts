@@ -74,7 +74,7 @@ const changePassword = async (payload: {
   const isUserExist = await userModel.findOne({ email: payload.email });
 
   if (!isUserExist) {
-    throw new AppError(409, "User does not Exits");
+    throw new AppError(404, "User does not Exits");
   }
 
   const isPasswordMatched = await bcrypt.compare(
