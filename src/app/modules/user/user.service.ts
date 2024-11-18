@@ -1,3 +1,4 @@
+import { isValidObjectId } from "mongoose";
 import config from "../../config";
 import AppError from "../../errors/AppError";
 import { TUser } from "./user.interface";
@@ -99,9 +100,26 @@ const changePassword = async (payload: {
   return result;
 };
 
+const updateUser = async (id: string, updatedDoc: Partial<TUser>) => {
+  const isValidId = isValidObjectId(id);
+  if (!isValidId) {
+    throw new AppError(406, "Invalid ObjectId");
+  }
+
+  const isUserExist = await userModel.findById(id);
+  if (!isUserExist) {
+    throw new AppError(404, "User not found");
+  }
+
+  const result = await userModel.updateOne({ _id: id }, { $set: updatedDoc });
+
+  return result;
+};
+
 export const userServices = {
   createUserIntoDB,
   loginUser,
   changePassword,
-  getAllUsers
+  getAllUsers,
+  updateUser,
 };

@@ -9,17 +9,17 @@ const auth = (...roles: any) => {
     const token = tokenWithBearer?.split(" ");
     
     if (!token) {
-      throw new AppError(501, "You are unauthorized");
+      throw new AppError(401, "You are unauthorized");
     }
 
     jwt.verify(token[1], config.jwt_secret as string, (err, decoded) => {
       if (err) {
-        throw new AppError(501, "You are unauthorized");
+        throw new AppError(401, "You are unauthorized");
       }
       const role = (decoded as JwtPayload).role;
 
       if (roles && !roles.includes(role)) {
-        throw new AppError(501, "You are unauthorized");
+        throw new AppError(401, "You are unauthorized");
       }
     });
 
