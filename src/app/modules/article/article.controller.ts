@@ -78,7 +78,7 @@ const getTending = async (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json({
       success: true,
       statusCode: 200,
-      message: "Featured retrieved successfully",
+      message: "Tending retrieved successfully",
       data: result,
     });
   } catch (error) {

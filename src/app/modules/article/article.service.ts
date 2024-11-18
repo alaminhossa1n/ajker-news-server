@@ -12,7 +12,8 @@ const createArticle = async (payload: TArticle) => {
 const getAllArticles = async () => {
   const articles = await ArticleModel.find()
     .populate("author", "name")
-    .populate("category", "name");
+    .populate("category", "name")
+    .sort({ published_at: -1 });
   return articles;
 };
 
@@ -20,7 +21,8 @@ const getAllArticles = async () => {
 const getBreakings = async () => {
   const articles = await ArticleModel.find({ is_breaking: true })
     .populate("author", "name")
-    .populate("category", "name");
+    .populate("category", "name")
+    .sort({ published_at: -1 });
   return articles;
 };
 
@@ -28,7 +30,8 @@ const getBreakings = async () => {
 const getFeatured = async () => {
   const articles = await ArticleModel.find({ is_featured: true })
     .populate("author", "name")
-    .populate("category", "name");
+    .populate("category", "name")
+    .sort({ published_at: -1 });
   return articles;
 };
 
@@ -38,7 +41,8 @@ const getTending = async () => {
     published_at: { $gte: new Date(Date.now() - 48 * 60 * 60 * 1000) },
   })
     .populate("author", "name")
-    .populate("category", "name");
+    .populate("category", "name")
+    .sort({ published_at: -1 });
   return articles;
 };
 
